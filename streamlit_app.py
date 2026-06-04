@@ -48,12 +48,16 @@ with col2:
         step=1
     )
 
-    sex = st.selectbox(
-        "Jenis kelamin",
-        options=["female", "male"],
-        format_func=lambda x: "Perempuan" if x == "female" else "Laki-laki"
-    )
+sex = st.selectbox(
+    "Jenis kelamin",
+    options=["female", "male"],
+    format_func=lambda x: "Perempuan" if x == "female" else "Laki-laki"
+)
 
+pregnancy_month = 0
+breastfeeding_month = 0
+
+if sex == "female":
     condition = st.selectbox(
         "Kondisi",
         options=["normal", "pregnant", "breastfeeding"],
@@ -64,9 +68,6 @@ with col2:
         }[x]
     )
 
-    pregnancy_month = 0
-    breastfeeding_month = 0
-
     if condition == "pregnant":
         pregnancy_month = st.number_input(
             "Usia kehamilan (bulan)",
@@ -75,8 +76,9 @@ with col2:
             value=1,
             step=1
         )
+        breastfeeding_month = 0
 
-    if condition == "breastfeeding":
+    elif condition == "breastfeeding":
         breastfeeding_month = st.number_input(
             "Lama menyusui (bulan)",
             min_value=1,
@@ -84,6 +86,16 @@ with col2:
             value=1,
             step=1
         )
+        pregnancy_month = 0
+
+    else:
+        pregnancy_month = 0
+        breastfeeding_month = 0
+
+else:
+    condition = "normal"
+    pregnancy_month = 0
+    breastfeeding_month = 0
 
 st.divider()
 
